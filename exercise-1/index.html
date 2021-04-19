@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+<script>
+$(document).ready(function(){
+
+	$.ajax({url:"https://5dc588200bbd050014fb8ae1.mockapi.io/assessment",success:function(ajaxresult){
+		var source = $("#some-template").html(); 
+		var template = Handlebars.compile(source);
+		var data = {
+			users: ajaxresult
+		};
+		Handlebars.registerHelper('createdDate', function(user) {
+			var d = new Date(this.createdAt);
+			return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
+		});
+		$('body').append(template(data));
+	}});  
+});
+
+</script>
+
+<style>
+	ul {
+	    width: 50%;
+	    list-style-type: none;
+	}
+	li {
+	    display: flex;
+	    height: 30px;
+	    flex-wrap: wrap;
+	    align-content: space-around;
+	}
+	li span:not(:first-child) {
+	    width: 30%;
+	}
+	li span:first-child {
+	    width: 10%;
+	}
+	li:nth-child(even) {
+	    background: #d8f0ff;
+	}
+    .showInfo {
+        display: none;
+    }
+</style>
+
+</head>
+
+<body>
+
+<script id="some-template" type="text/x-handlebars-template">
+<div id="nav">
+<ul>
+    <li>
+        <span></span>
+        <span><b>Name</b></span>
+        <span class="toggleInfo"><b>Created At</b></span>
+        <span class="toggleInfo"><b>Id</b></span>
+        <button class="showInfo">Show Info</button>
+        </li>
+  {{#each users}}
+    <li>
+	<span><img src="{{avatar}}"/></span>
+	<span>{{name}}</span>
+	<span class="toggleInfo">{{createdDate}}</span>
+	<span class="toggleInfo">{{id}}</span>
+	<button class="showInfo">Show Info</button>
+    </li>
+  {{/each}}
+</ul>
+</div>
+</script>
+
+</body>
+</html>
