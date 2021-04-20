@@ -5,9 +5,10 @@ html body {
   }
 
   html body .container {
-    display: block;
-    width: 600px;
-    margin: 100px auto 0;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 5% 20%;
   }
 
   html body ul {
@@ -78,7 +79,7 @@ html body {
   /* New Task */
   html body input#new-task   {
     float: left;
-    width: 318px;
+    width: 70%;
   }
 
   html body p > button :hover {
@@ -101,12 +102,12 @@ html body {
   html body li > label {
     font-size:18px;
     line-height: 40px;
-    width: 237px;
+    width: 60%;
     padding:0 0 0 11px;
   }
   
   html body li >  input[type="text"] {
-    width: 226px;
+    width: 60%;
   }
 
   html body li > .delete :hover {
@@ -134,7 +135,7 @@ html body {
 
   @media only screen and (max-width: 375px) {
     html body .container {
-      width: 100%;
+      padding: 0;
     }
     html body input#new-task, html body li > label, html body li > input[type="text"] {
       width: 50%;
