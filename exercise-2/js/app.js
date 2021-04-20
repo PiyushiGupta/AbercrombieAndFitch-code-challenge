@@ -4,18 +4,6 @@ var addButton = document.getElementsByTagName("button")[0];
 var incompleteTasksHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
 
-addButton.addEventListener("click", addTask);
-
-for (var i = 0; i < incompleteTasksHolder.children.length; i++) {
-  bindTaskEvents(incompleteTasksHolder.children[i], taskCompleted);
-}
-
-for (var i = 0; i < completedTasksHolder.children.length; i++) {
-  completedTasksHolder.children[i].firstChild.checked = true;
-  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
-}
-
-
 var createNewTaskElement = function(taskString, arr) {
   listItem = document.createElement("li");
   checkBox = document.createElement("input");
@@ -42,11 +30,12 @@ var createNewTaskElement = function(taskString, arr) {
  };
 
 var addTask = async function () {
-  var listItemName = taskInput.value || "New Item";
+  var listItemName = taskInput.value;
+  if(listItemName !== '') {
   listItem = createNewTaskElement(listItemName);
   incompleteTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskCompleted);
-  taskInput.value = "";
+  // taskInput.value = "";
          
   const todos = !localStorage.getItem("todos") ? [] : JSON.parse(localStorage.getItem("todos"));
   const currentTodo = {
@@ -56,6 +45,7 @@ var addTask = async function () {
   todos.push(currentTodo);
   localStorage.setItem("todos", JSON.stringify(todos));
   taskInput.focus();
+}
 };
 
 var editTask = function () {
@@ -154,6 +144,17 @@ if(todos) {
       bindTaskEvents(todolist, taskCompleted);
     }
   });
+
+  addButton.addEventListener("click", addTask);
+
+for (var i = 0; i < incompleteTasksHolder.children.length; i++) {
+  bindTaskEvents(incompleteTasksHolder.children[i], taskCompleted);
+}
+
+for (var i = 0; i < completedTasksHolder.children.length; i++) {
+  completedTasksHolder.children[i].firstChild.checked = true;
+  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
+}
 }
 
 });
