@@ -131,3 +131,12 @@ html body {
   html body ul li.editMode label {
     display :none;
   }
+
+  @media only screen and (max-width: 375px) {
+    html body .container {
+      width: 100%;
+    }
+    html body input#new-task, html body li > label, html body li > input[type="text"] {
+      width: 50%;
+    }
+  }
